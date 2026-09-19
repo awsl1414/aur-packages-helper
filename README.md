@@ -1,27 +1,20 @@
-# AUR Packages Helper
+# AUR Packages Helper（已归档）
 
-> 为 [aur-packages](https://github.com/awsl1414/aur-packages) 提供应用版本、文件 hash 等信息的服务
+> ⚠️ 本项目已合并进 [aur-packages](https://github.com/awsl1414/aur-packages)（`projects/aur-metadata`），本仓库不再维护，仅作历史存档。
 
-[![Python](https://img.shields.io/badge/Python-3.13%2B-blue)](https://www.python.org/)
+## 说明
 
-## 简介
+`aur-packages-helper` 曾是 [aur-packages](https://github.com/awsl1414/aur-packages) 的配套服务，负责获取应用版本、计算文件 hash 等辅助功能。现已作为 `aur-metadata` 成员并入 aur-packages monorepo，后续所有开发、Issue 与 PR 请前往：
 
-`aur-packages-helper` 是 [aur-packages](https://github.com/awsl1414/aur-packages) 的配套服务，负责获取应用版本、计算文件 hash 等辅助功能，供 `aur-packages` 在更新 PKGBUILD 时调用。
+- **新仓库**：https://github.com/awsl1414/aur-packages
+- **新位置**：[`projects/aur-metadata`](https://github.com/awsl1414/aur-packages/tree/dev/projects/aur-metadata)
 
-支持定时采集各包版本与文件 hash 并落库 SQLite；查询接口纯读数据库（版本与 hash 独立采集、独立落库，版本先行永不被下载失败连坐），快照过期时后台异步刷新，永不阻塞响应。
+## 原功能概述
 
-## 技术栈
+- FastAPI 查询服务：追踪上游应用版本、计算文件 hash
+- Tortoise ORM + SQLite 持久化，APScheduler 定时采集
+- 版本与 hash 独立采集、独立落库，快照过期时后台异步刷新，查询纯读数据库不阻塞
 
-- Python 3.13+ / uv
-- FastAPI（Web 服务）
-- Tortoise ORM（数据持久化，SQLite）
-- APScheduler（定时采集调度）
+## 技术栈（历史）
 
-## 开发
-
-```bash
-uv sync          # 同步依赖
-uv run main.py   # 启动服务
-```
-
-服务启动后访问 `http://127.0.0.1:8000/docs` 查看交互式 API 文档，路由规范见 [docs/api.md](docs/api.md)。
+Python 3.13+ / uv · FastAPI · Tortoise ORM · APScheduler
